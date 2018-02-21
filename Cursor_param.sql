@@ -1,0 +1,26 @@
+DECLARE
+ceco_c IMPORT_FROM_EXCEL_CECO%ROWTYPE;
+rec_city IMPORT_FROM_EXCEL_CECO.CITY%TYPE;
+CURSOR cur_CECO ( init_city VARCHAR2)
+   IS
+    SELECT * FROM IMPORT_FROM_EXCEL_CECO WHERE IMPORT_FROM_EXCEL_CECO.CITY = init_city;
+   -- ceco_c cur_CECO%rowtype;
+    
+BEGIN
+
+OPEN cur_CECO('Rio de Janeiro');
+    LOOP
+FETCH cur_CECO INTO ceco_c;
+EXIT WHEN cur_CECO%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(ceco_c.city);
+END LOOP;
+CLOSE cur_CECO;
+
+OPEN cur_CECO('Sao Paulo');
+    LOOP
+FETCH cur_CECO INTO ceco_c;
+EXIT WHEN cur_CECO%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(ceco_c.city);
+END LOOP;
+CLOSE cur_CECO;
+END
